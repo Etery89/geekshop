@@ -9,12 +9,12 @@ def index(request):
     context = {
         'title': 'geekShop',
     }
-    return render(request, 'mainapp/index.html', context)
+    return render(request, 'mainapp/base.html', context)
 
 
 def products(request):
     context = {
-        'title': 'geekShop - kаталог',
+        'title': 'geekShop - каталог',
         'products': Product.objects.all(),
         'categories': ProductCategory.objects.all(),
     }
