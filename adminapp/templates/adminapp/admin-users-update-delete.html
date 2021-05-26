@@ -54,10 +54,10 @@
                 </form>
             </div>
             <div class="col-lg-12" style="margin-top: 33px;">
-                <a href="{% url 'admin_staff:admin_users_recovery' user.id %}" class="btn btn-danger btn-block">
-                    Восстановить
-                </a>
-
+                <form action="{% url 'admin_staff:admin_users_recovery' user.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Восстановить" class="btn btn-danger btn-block">
+                </form>
             </div>
         </div>
     </div>

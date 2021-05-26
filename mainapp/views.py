@@ -30,8 +30,3 @@ def products(request, category_id=None, page=1):
 
     context.update({'products': products_paginator})
     return render(request, 'mainapp/products.html', context)
-
-
-# class ProductsListView(ListView):
-#     model = Product
-#     template_name = 'mainapp/products.html'
