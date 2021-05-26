@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list import ListView
 
 from mainapp.models import Product, ProductCategory
 
@@ -29,3 +30,8 @@ def products(request, category_id=None, page=1):
 
     context.update({'products': products_paginator})
     return render(request, 'mainapp/products.html', context)
+
+
+# class ProductsListView(ListView):
+#     model = Product
+#     template_name = 'mainapp/products.html'
