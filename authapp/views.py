@@ -8,7 +8,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm
-from basketapp.models import Basket
 from authapp.models import User
 # Create your views here.
 
@@ -62,12 +61,9 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    baskets = Basket.objects.filter(user=request.user)
-
     context = {
         'title': 'GeekShop - Личный кабинет',
         'form': form,
-        'baskets': baskets
     }
     return render(request, 'authapp/profile.html', context)
 
