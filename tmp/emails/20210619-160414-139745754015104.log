@@ -1,0 +1,11 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Account verify
+From: django@geekshop.local
+To: ivan@yandex.ru
+Date: Sat, 19 Jun 2021 16:04:14 -0000
+Message-ID: <162411865434.12433.14926237557143365202@etery-pc>
+
+Your link for account activation: http://localhost:8088/users/verify/ivan@yandex.ru/05e001d56a3b33478b0093fe816da3ec69aba606/
+-------------------------------------------------------------------------------
