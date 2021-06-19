@@ -1,4 +1,4 @@
-{% extends 'authapp/base.html' %}
+{% extends 'mainapp/base.html' %}
 
 {% block content %}
     {% if user.is_authenticated %}
@@ -19,7 +19,7 @@
         </p>
     {% endif %}
     <br>
-    <a href=#">
+    <a href="{% url 'products:index' %}">
         На главную
     </a>
 {% endblock %}
