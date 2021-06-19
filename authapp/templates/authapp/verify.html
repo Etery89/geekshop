@@ -1,0 +1,25 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>
+            Поздравляем!
+        </h1>
+        <br>
+        <p>
+            Вы успешно активировали аккаунт.
+        </p>
+    {% else %}
+        <h1>
+            Что-то пошло не так :(
+        </h1>
+        <br>
+        <p>
+            К сожалению, активация аккаунта не удалась. Обратитесь в техподдержку.
+        </p>
+    {% endif %}
+    <br>
+    <a href="{% url 'products:index' %}">
+        На главную
+    </a>
+{% endblock %}
