@@ -6,7 +6,7 @@ from authapp.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email')
+    list_display = ('username', 'first_name', 'last_name', 'email')
     fields = (('first_name', 'last_name'), 'email', 'image')
     ordering = ('last_name', 'first_name')
     search_fields = ('email',)

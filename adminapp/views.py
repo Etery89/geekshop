@@ -29,7 +29,7 @@ class UserListView(ListView):
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserListView, self).dispatch()
+        return super(UserListView, self).dispatch(request, *args, **kwargs)
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def admin_users_create(request):
@@ -54,7 +54,7 @@ class UserCreateView(CreateView):
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserCreateView, self).dispatch()
+        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def admin_users_update(request, user_id):
@@ -82,7 +82,7 @@ class UserUpdateView(UpdateView):
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserUpdateView, self).dispatch()
+        return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def admin_users_remove(request, user_id):
@@ -106,7 +106,7 @@ class UserDeleteView(DeleteView):
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserDeleteView, self).dispatch()
+        return super(UserDeleteView, self).dispatch(request, *args, **kwargs)
 
 
 # @user_passes_test(lambda u: u.is_superuser)
@@ -131,4 +131,4 @@ class UserRecoveryView(DeleteView):
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserRecoveryView, self).dispatch()
+        return super(UserRecoveryView, self).dispatch(request, *args, **kwargs)

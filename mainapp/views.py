@@ -30,3 +30,15 @@ def products(request, category_id=None, page=1):
 
     context.update({'products': products_paginator})
     return render(request, 'mainapp/products.html', context)
+
+
+# class ProductsListView(ListView):
+#     model = Product
+#     template_name = 'mainapp/products.html'
+#     paginate_by = 1
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(ProductsListView, self).get_context_data(**kwargs)
+#         context['title'] = 'geekShop - каталог'
+#         context['categories'] = ProductCategory.objects.all()
+#         return context
