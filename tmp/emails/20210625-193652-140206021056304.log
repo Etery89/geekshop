@@ -1,0 +1,11 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Account verify
+From: shadowx110@yandex.ru
+To: ivan@yandex.ru
+Date: Fri, 25 Jun 2021 19:36:52 -0000
+Message-ID: <162464981266.8781.1544930854521671536@etery-pc>
+
+Your link for account activation: http://localhost:8000/users/verify/ivan@yandex.ru/b5e9da53379af02bf17753098197c4757fff72a0/
+-------------------------------------------------------------------------------

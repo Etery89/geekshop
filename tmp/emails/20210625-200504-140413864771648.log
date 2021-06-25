@@ -1,0 +1,11 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Account verify
+From: shadowx110@yandex.ru
+To: jora@mail.ru
+Date: Fri, 25 Jun 2021 20:05:04 -0000
+Message-ID: <162465150421.9936.5238718048664305810@etery-pc>
+
+Your link for account activation: http://localhost:8000/users/verify/jora@mail.ru/258c1b2a556674ade8c5632ad8865b33a1d15099/
+-------------------------------------------------------------------------------
