@@ -100,11 +100,18 @@ class ShopUserProfileForm(forms.ModelForm):
         'class': 'form-control py-4',
         'placeholder': 'О себе'
     }))
-    gender = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control py-4',
-        'placeholder': 'Пол'
-    }))
+    # gender = forms.CharField(widget=forms.TextInput(attrs={
+    #     'class': 'form-control py-4',
+    #     'placeholder': 'Пол'
+    # }))
 
     class Meta:
         model = ShopUserProfile
         fields = ('tagline', 'about_me', 'gender')
+
+    def init(self, *args, **kwargs):
+        super().init(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control py-4'
+            if field_name == 'gender':
+                field.widget.attrs['class'] = 'form-select form-control form-control'
