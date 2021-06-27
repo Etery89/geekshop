@@ -1,0 +1,11 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Account verify
+From: shadowx110@yandex.ru
+To: ura@list.ru
+Date: Sun, 27 Jun 2021 09:39:32 -0000
+Message-ID: <162478677266.7217.854828418491718227@etery-pc>
+
+Your link for account activation: http://localhost:8000/users/verify/ura@list.ru/a55287c84c8e107b15930dc0708b23508516b2d5/
+-------------------------------------------------------------------------------

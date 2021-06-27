@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'authapp',
     'basketapp',
     'adminapp',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -150,7 +151,7 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/emails/'
 
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # for email send by python -m smtpd
 # EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
@@ -161,6 +162,14 @@ DOMAIN_NAME = 'http://localhost:8000'
 # EMAIL_HOST_USER = 'myemail@example.ru'
 # EMAIL_HOST_PASSWORD = 'mypassword'
 # EMAIL_USE_SSL = True
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

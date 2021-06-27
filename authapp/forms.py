@@ -4,7 +4,7 @@ import random
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
-from authapp.models import User
+from authapp.models import User, ShopUserProfile
 
 
 class UserLoginForm(AuthenticationForm):
@@ -47,10 +47,21 @@ class UserRegisterForm(UserCreationForm):
         'class': 'form-control py-4',
         'placeholder': 'Подтвердите пароль'
     }))
+    age = forms.IntegerField(widget=forms.TextInput(attrs={
+        'class': 'form-control py-4',
+        'placeholder': 'Возраст'
+    }))
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'age')
+
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError('Вы слишком молоды')
+
+        return data
 
     def save(self, commit=True):
         user = super().save()
@@ -69,7 +80,7 @@ class UserProfileForm(UserChangeForm):
     }))
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'class': 'form-control py-4',
-        'readonly': True
+        'readonly': False
     }))
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
@@ -77,4 +88,23 @@ class UserProfileForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields =('username', 'email', 'first_name', 'last_name', 'image')
+        fields = ('username', 'email', 'first_name', 'last_name', 'image')
+
+
+class ShopUserProfileForm(forms.ModelForm):
+    tagline = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control py-4',
+        'placeholder': 'Теги'
+    }))
+    about_me = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control py-4',
+        'placeholder': 'О себе'
+    }))
+    gender = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control py-4',
+        'placeholder': 'Пол'
+    }))
+
+    class Meta:
+        model = ShopUserProfile
+        fields = ('tagline', 'about_me', 'gender')

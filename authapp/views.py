@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 
-from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm
+from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm, ShopUserProfileForm
 from basketapp.models import Basket
 from authapp.models import User
 # Create your views here.
@@ -51,15 +51,18 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
-        if form.is_valid():
+        profile_form = ShopUserProfileForm(data=request.POST, instance=request.user.shopuserprofile)
+        if form.is_valid() and profile_form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=request.user)
+        profile_form = ShopUserProfileForm(instance=request.user.shopuserprofile)
 
     context = {
         'title': 'GeekShop - Личный кабинет',
-        'form': form
+        'form': form,
+        'profile_form': profile_form
     }
     return render(request, 'authapp/profile.html', context)
 
