@@ -6,16 +6,18 @@ from social_core.exceptions import AuthForbidden
 
 
 def save_user_profile(backend, user, response, *args, **kwargs):
-    if backend != 'vk-oauth2':
+    if backend.name != 'vk-oauth2':
         return
-    api_url = f"https://api.vk.com/method/users.get?fields=bdate,sex,about&access_token={response['access_token']}"
+    api_url = f"https://api.vk.com/method/users.get?fields=bdate,sex,about,photo_max_orig&v=5.131&access_token={response['access_token']}"
 
     vk_response = requests.get(api_url)
+    # print(vk_response.json())
+    # print(vk_response.status_code)
 
     if vk_response.status_code != 200:
         return
 
-    vk_data = vk_response.json()['responce'][0]
+    vk_data = vk_response.json()['response'][0]
 
     if vk_data['sex']:
         if vk_data['sex'] == 2:
@@ -33,6 +35,14 @@ def save_user_profile(backend, user, response, *args, **kwargs):
             user.delete()
             raise AuthForbidden('social_core.backends.vk.VKOAuth2')
         user.age = age
+
+    if vk_data['photo_max_orig']:
+        photo_link = vk_data['photo_max_orig']
+        photo_response = requests.get(photo_link)
+        user_photo_path = f'users_images/{user.pk}.jpg'
+        with open(f'media/{user_photo_path}', 'wb') as photo_file:
+            photo_file.write(photo_response.content)
+        user.image = user_photo_path
 
     user.save()
 
