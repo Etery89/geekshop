@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
 
@@ -35,10 +35,17 @@ def products(request, category_id=None, page=1):
 # class ProductsListView(ListView):
 #     model = Product
 #     template_name = 'mainapp/products.html'
-#     paginate_by = 1
+#     paginate_by = 3
+#
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         queryset = queryset.filter(category_id=self.kwargs['category_id'])
+#         return queryset
 #
 #     def get_context_data(self, **kwargs):
 #         context = super(ProductsListView, self).get_context_data(**kwargs)
 #         context['title'] = 'geekShop - каталог'
-#         context['categories'] = ProductCategory.objects.all()
+#         context['categories'] = get_object_or_404(ProductCategory, category_id=self.kwargs['category_id'])
 #         return context
+
+
