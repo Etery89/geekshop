@@ -4,6 +4,7 @@ from ordersapp.models import Order, OrderItem
 from ordersapp.forms import OrderItemForm
 from django.urls import reverse_lazy
 from django.forms import inlineformset_factory
+from django.db import transaction
 
 
 class OrderList(ListView):
@@ -27,6 +28,22 @@ class OrderCreate(CreateView):
             formset = OrderFormSet()
         data['orderitems'] = formset
         return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        orderitems = context['orderitems']
+
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            self.object = form.save()
+            if orderitems.is_valid():
+                orderitems.instance = self.object
+                orderitems.save()
+
+        if self.object.get_total_cost() == 0:
+            self.object.delete()
+
+        return super().form_valid(form)
 
 
 class OrderUpdate(UpdateView):
