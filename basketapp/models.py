@@ -3,10 +3,21 @@ from django.db import models
 from authapp.models import User
 from mainapp.models import Product
 
-# Create your models here.
+
+# работа с остатками товара через использование менеджера объектов
+# class BasketQuerySet(models.QuerySet):
+#
+#     def delete(self):
+#         for item in self:
+#             item.product.quantity += item.quantity
+#             item.product.save()
+#         super().delete()
 
 
-class Basket(models.Model):
+class Basket(models.Model)
+    # определение менеджера объектов  в модели
+    # objects = BasketQuerySet.as_manager()
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
@@ -25,4 +36,26 @@ class Basket(models.Model):
     def total_sum(self):
         baskets = Basket.objects.filter(user=self.user)
         return sum(basket.sum() for basket in baskets)
+
+    # работа с остатками товара через использование сигналов
+    @staticmethod
+    def get_item(pk):
+        return Basket.objects.get(pk=pk)
+
+    # переопределение методов delete и save для менеджера лбъектов
+    # def delete(self, *args, **kwargs):
+    #     self.product.quantity += self.quantity
+    #     self.product.save()
+    #     super().delete(*args, **kwargs)
+    #
+    # def save(self, *args, **kwargs):
+    #     if self.pk:
+    #         self.product.quantity -= self.quantity - self.__class__.objects.get(pk=self.pk).quantity
+    #
+    #     else:
+    #         self.product.quantity -= self.quantity
+    #     self.product.save()
+    #     super().save(*args, **kwargs)
+
+
 
