@@ -7,8 +7,10 @@ from basketapp.models import Basket
 from django.urls import reverse_lazy
 from django.forms import inlineformset_factory
 from django.db import transaction
+from django.db.models.signals import pre_save, pre_delete
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.dispatch import receiver
 
 
 class OrderList(ListView):
@@ -29,7 +31,7 @@ class OrderCreate(CreateView):
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
         else:
-            basket_items = list(Basket.objects.filter(user=self.request.user))
+            basket_items = Basket.objects.filter(user=self.request.user)
             if len(basket_items):
                 OrderFormSet = inlineformset_factory(
                     Order,
@@ -43,8 +45,10 @@ class OrderCreate(CreateView):
                     print(basket_items[num])
                     form.initial['product'] = basket_items[num].product
                     form.initial['quantity'] = basket_items[num].quantity
-                for basket_item in basket_items:
-                    basket_item.delete()
+                    form.initial['price'] = basket_items[num].product.price
+                # for basket_item in basket_items:
+                #     basket_item.delete()
+                basket_items.delete()
             else:
                 formset = OrderFormSet()
         data['orderitems'] = formset
@@ -78,7 +82,11 @@ class OrderUpdate(UpdateView):
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, instance=self.object)
         else:
-            formset = OrderFormSet(instance=self.object)
+            orderitems_formset = OrderFormSet(instance=self.object)
+            for form in orderitems_formset.forms:
+                if form.instance.pk:
+                    form.initial['price'] = form.instance.product.price
+            formset = orderitems_formset
         data['orderitems'] = formset
         return data
 
@@ -112,3 +120,21 @@ def forming_complete(request, pk):
     order.status = Order.SENT_TO_PROCEED
     order.save()
     return HttpResponseRedirect(reverse('order:list'))
+
+
+# реализация работы с остатками товаров через сигналы
+# @receiver(pre_save, sender=Basket)
+# @receiver(pre_save, sender=Order)
+# def product_quantity_update_save(sender, update_fields, instance, **kwargs):
+#     if instance.pk:
+#         instance.product.quantity -= instance.quantity - instance.get_item(instance.pk).quantity
+#     else:
+#         instance.product.quantity -= instance.quantity
+#     instance.product.save()
+#
+#
+# @receiver(pre_delete, sender=Basket)
+# @receiver(pre_delete, sender=Order)
+# def product_quantity_update_delete(sender, instance, **kwargs):
+#     instance.product.quantity += instance.quantity
+#     instance.product.save()
