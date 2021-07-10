@@ -124,7 +124,7 @@ def forming_complete(request, pk):
 
 # реализация работы с остатками товаров через сигналы
 # @receiver(pre_save, sender=Basket)
-# @receiver(pre_save, sender=Order)
+# @receiver(pre_save, sender=OrderItem)
 # def product_quantity_update_save(sender, update_fields, instance, **kwargs):
 #     if instance.pk:
 #         instance.product.quantity -= instance.quantity - instance.get_item(instance.pk).quantity
@@ -134,7 +134,7 @@ def forming_complete(request, pk):
 #
 #
 # @receiver(pre_delete, sender=Basket)
-# @receiver(pre_delete, sender=Order)
+# @receiver(pre_delete, sender=OrderItem)
 # def product_quantity_update_delete(sender, instance, **kwargs):
 #     instance.product.quantity += instance.quantity
 #     instance.product.save()
