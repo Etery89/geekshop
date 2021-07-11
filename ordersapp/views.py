@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+
+from mainapp.models import Product
 from ordersapp.models import Order, OrderItem
 from ordersapp.forms import OrderItemForm
 from basketapp.models import Basket
@@ -11,6 +13,7 @@ from django.db.models.signals import pre_save, pre_delete
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.dispatch import receiver
+from django.http import JsonResponse
 
 
 class OrderList(ListView):
@@ -120,6 +123,16 @@ def forming_complete(request, pk):
     order.status = Order.SENT_TO_PROCEED
     order.save()
     return HttpResponseRedirect(reverse('order:list'))
+
+
+def get_product_price(request, pk):
+    if request.is_ajax():
+        product = Product.objects.filter(pk=pk).first()
+        if product:
+            return JsonResponse({'price': product.price})
+        else:
+            return JsonResponse({'price': 0})
+
 
 
 # реализация работы с остатками товаров через сигналы
