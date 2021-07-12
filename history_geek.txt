@@ -1,0 +1,127 @@
+    1  ls
+    2  apt install postgresql postgresql-contrib
+    3  apt install python3-venv
+    4  git --version
+    5  apt install mc
+    6  mcedit /etc/postgresql/12/main/pg_hba.conf 
+    7  systemctl restart postgresql
+    8  systemctl status postgresql
+    9  useradd -g www-data -m django
+   10  ls
+   11  cd /home/django/
+   12  cd ~
+   13  ls
+   14  rm geekshop/
+   15  rm -r geekshop/
+   16  ls
+   17  cd /home/django/
+   18  ls
+   19  git clone git@github.com:Etery89/geekshop.git
+   20  ls
+   21  ls -la
+   22  python3 -m venv env
+   23  source env/bin/activate
+   24  ls
+   25  deactivate
+   26  rm -r env/
+   27  ls
+   28  cd geekshop/
+   29  ls
+   30  python3 -m venv env
+   31  source env/bin/activate
+   32  dectivate
+   33  deactivate
+   34  cd ..
+   35  ls
+   36  rm -r geekshop/
+   37  git clone git@github.com:Etery89/geekshop.git
+   38  cd geekshop/
+   39  python3 -m venv env
+   40  source env/bin/activate
+   41  pip3 install -r requirements.txt 
+   42  pip3 install gunicorn
+   43  psql -U postgres
+   44  python3 manage.py migrate
+   45  python3 manage.py loaddata mainapp/fixtures/categories.json 
+   46  python3 manage.py loaddata mainapp/fixtures/goods.json 
+   47  git pull
+   48  python3 manage.py loaddata authapp/fixtures/users.json 
+   49  python3 manage.py loaddata authapp/fixtures/shop_users_profile.json 
+   50  python3 manage.py runserver
+   51  python3 manage.py runserver 0.0.0.0:8000
+   52  mcedit /etc/systemd/qunicorn.service
+   53  systemctl enable gunicorn
+   54  mcedit /etc/systemd/qunicorn.service
+   55* 
+   56  mcedit /etc/systemd/gunicorn.service
+   57  systemctl enable gunicorn
+   58  ls /etc/systemd/
+   59  cd /etc
+   60  cd systemd/
+   61  ls
+   62  rm qunicorn.service 
+   63  ls
+   64  mcedit gunicorn.service 
+   65  cd /home/django/
+   66  ls
+   67  cd geekshop/
+   68  systemctl enable gunicorn
+   69  cd /etc/systemd/
+   70  ls
+   71  rm gunicorn.service 
+   72  ls
+   73  cd system/
+   74  ls
+   75  mcedit gunicorn.service
+   76  cd /home/django/
+   77  systemctl enable gunicorn
+   78  systemctl start gunicorn
+   79  systemctl status gunicorn
+   80  chown -R django /home/django/
+   81  systemctl status gunicorn
+   82  systemctl start gunicorn
+   83  systemctl status gunicorn
+   84  зы
+   85  ps
+   86  kill 6238
+   87  kill 6320
+   88  kill 6340
+   89  ls
+   90  sudo systemctl start gunicorn
+   91  sudo systemctl status gunicorn
+   92  ps
+   93  зы
+   94  ps
+   95  mcedit /etc/systemd/system/gunicorn.service 
+   96  systemctl enable gunicorn
+   97  systemctl start gunicorn
+   98  systemctl status gunicorn
+   99  mcedit /etc/nginx/sites-available/geekshop
+  100  ln -s /etc/nginx/sites-available/geekshop /etc/nginx/sites-enabled/
+  101  cd /etc/nginx/sites-enabled/
+  102  ls
+  103  rm default 
+  104  ls
+  105  cd /home/django/
+  106  ls
+  107  nginx -t
+  108  systemctl restart nginx
+  109  ls
+  110  cd geekshop/
+  111  git status
+  112  git pull
+  113  systemctl restart nginx
+  114  history > history_geekshop.txt
+  115  ls
+  116  rm history_geekshop.txt 
+  117  history
+  118  history > /tmp/history_geekshop.txt
+  119  ls
+  120  cd tmp/
+  121  ls
+  122  cd emails/
+  123  ls
+  124  cd ..
+  125  ls
+  126  cd ..
+  127  history > history_geek.txt
