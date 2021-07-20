@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
+from django.conf import settings
+from django.core.cache import cache
 
 from mainapp.models import Product, ProductCategory
 
@@ -14,10 +16,23 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
+def get_categories():
+    if settings.LOW_CACHE:
+        key = 'categories'
+        categories = cache.get(key)
+        if categories is None:
+            categories = ProductCategory.objects.filter(is_active=True)
+            cache.set(key, categories)
+        return categories
+    else:
+        return ProductCategory.objects.filter(is_active=True)
+
+
 def products(request, category_id=None, page=1):
     context = {
         'title': 'geekShop - каталог',
-        'categories': ProductCategory.objects.all()
+        # 'categories': ProductCategory.objects.all()
+        'categories': get_categories()
     }
     products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
     paginator = Paginator(products, per_page=3)
