@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.cache import cache_page
 from django.views.generic.list import ListView
 from django.conf import settings
 from django.core.cache import cache
@@ -27,7 +28,7 @@ def get_categories():
     else:
         return ProductCategory.objects.all()
 
-
+@cache_page(3600)
 def products(request, category_id=None, page=1):
     context = {
         'title': 'geekShop - каталог',
