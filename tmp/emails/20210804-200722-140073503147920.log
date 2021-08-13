@@ -1,0 +1,11 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Account verify
+From: shadowx110@yandex.ru
+To: natalia@bk.ru
+Date: Wed, 04 Aug 2021 20:07:22 -0000
+Message-ID: <162810764218.4362.2788734999441899235@etery-pc>
+
+Your link for account activation: http://127.0.0.1:8000/users/verify/natalia@bk.ru/ade1e03835d09d98ab4c7e825249a61effb7e9cf/
+-------------------------------------------------------------------------------
